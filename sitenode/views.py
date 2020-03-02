@@ -45,16 +45,19 @@ def spider():
                     site[key] = float(site[key])
                 except ValueError:
                     continue
-        serializer = SiteNodeModelSerializers(data=data, many=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+            try:
+                serializer = SiteNodeModelSerializers(data = site)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+            except BaseException as e:
+                 pass
         print(datetime.datetime.now())
-        time.sleep(60)
+        time.sleep(600)
         # creatTimer()
     # return r.text
 
 
-# import threading
-#
-# spiderThread = threading.Thread(target=spider, name='spider')
-# spiderThread.start()
+import threading
+
+spiderThread = threading.Thread(target=spider, name='spider')
+spiderThread.start()

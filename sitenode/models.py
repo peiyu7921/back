@@ -14,6 +14,7 @@ class SiteNode(models.Model):
     attribute = models.CharField(max_length=30, blank=True)
     status = models.CharField(max_length=20)
     class Meta():
-        unique_together = (('id', 'siteName'),)
+        unique_together = (('siteName', 'dateTime'),)
+        db_table = 'site_node'
         verbose_name = '站点'
         ordering = ['-id']
